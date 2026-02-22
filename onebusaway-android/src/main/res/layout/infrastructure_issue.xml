@@ -17,7 +17,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:focusableInTouchMode="true"
-              android:background="@color/material_background"
+              android:background="@color/trip_details_background"
               android:orientation="vertical"
               android:configChanges="keyboardHidden|orientation|screenSize">
 
@@ -193,7 +193,7 @@
                             style="@style/MaterialItem"
                             android:textSize="15sp"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@android:color/black"/>
+                            />
                 </FrameLayout>
 
                 <LinearLayout

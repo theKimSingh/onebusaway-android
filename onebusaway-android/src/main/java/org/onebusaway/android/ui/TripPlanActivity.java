@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -97,6 +98,8 @@ public class TripPlanActivity extends AppCompatActivity implements TripRequest.C
         setContentView(R.layout.activity_trip_plan);
 
         UIUtils.setupActionBar(this);
+
+        getSupportActionBar().setElevation(0);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
