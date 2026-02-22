@@ -53,6 +53,7 @@ public class ReportActivity extends BaseReportActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setElevation(0);
         }
 
         setTitle(getString(R.string.navdrawer_item_send_feedback));

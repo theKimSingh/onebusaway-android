@@ -17,28 +17,22 @@
     limitations under the License.
 -->
 <resources>
-    <!-- OneBusAway Theme -->
-    <color name="theme_primary">#4CAF50</color>
-    <color name="theme_primary_dark">#388E3C</color>
-    <color name="theme_primary_light">#4CAF50</color>
-    <color name="theme_muted">#94CF96</color>
-    <color name="theme_accent">#5db53b</color>
+    <color name="theme_primary">#388E3C</color>
 
-    <color name="body_text_1">#de000000</color>
-    <color name="body_text_2">#8a000000</color>
-    <color name="body_text_3">#60000000</color>
-    <color name="body_text_disabled">#44000000</color>
+    <color name="body_text_1">#deffffff</color>
+    <color name="body_text_2">#8affffff</color>
+    <color name="body_text_3">#6fffffff</color>
+    <color name="body_text_disabled">#44ffffff</color>
 
-    <color name="body_text_1_inverse">#deffffff</color>
-    <color name="body_text_2_inverse">#8affffff</color>
+    <color name="body_text_1_inverse">#de000000</color>
+    <color name="body_text_2_inverse">#8a000000</color>
 
     <!-- Navigation Drawer -->
-    <color name="navdrawer_background">@android:color/white</color>
-    <color name="navdrawer_text_color">@color/body_text_1</color>
-    <color name="navdrawer_text_color_selected">@color/theme_primary</color>
+    <color name="navdrawer_background">@color/background_material_dark</color>
+    <color name="navdrawer_text_color_selected">@color/theme_primary_light</color>
     <color name="navdrawer_background_color_selected">#11000000</color>
     <color name="navdrawer_icon_tint">#888</color>
-    <color name="navdrawer_icon_tint_selected">@color/theme_primary</color>
+    <color name="navdrawer_icon_tint_selected">@color/theme_primary_light</color>
 
     <!-- ListView background -->
 <!--    <color name="listview_background">@android:color/white</color>-->
@@ -50,11 +44,11 @@
     <!-- Arrival times header -->
     <color name="header_text_color">@android:color/white</color>
     <color name="header_text_faded_color">#bbffffff</color>
-    <color name="header_stop_info_ontime">@color/theme_primary</color>
+    <color name="header_stop_info_ontime">@color/theme_primary_light</color>
 
     <!-- Arrival time colors -->
     <color name="stop_info_scheduled_time">#777777</color>
-    <color name="stop_info_ontime">@color/theme_primary</color>
+    <color name="stop_info_ontime">@color/theme_primary_light</color>
     <color name="stop_info_delayed">#504caf</color>
     <color name="stop_info_early">#af504c</color>
 
@@ -62,7 +56,7 @@
     <color name="stop_info_occupancy_background">#ededed</color>
     <color name="stop_info_occupancy">@color/stop_info_scheduled_time</color>
 
-    <color name="stop_info_arrival_list_background">#eaeaea</color>
+    <color name="stop_info_arrival_list_background">@android:color/black</color>
 
     <color name="realtime_indicator_fill">@android:color/transparent</color>
     <color name="realtime_indicator_line">@android:color/white</color>
@@ -98,7 +92,7 @@
     <color name="tutorial_text">#bfffffff</color>
 
     <!-- Trip Planning -->
-    <color name="trip_plan_label">@android:color/black</color>
+    <color name="trip_plan_label">@android:color/white</color>
     <color name="trip_option_background">@color/theme_primary</color>
     <color name="trip_option_selected">@android:color/white</color>
     <color name="trip_option_icon_tint">#888</color>

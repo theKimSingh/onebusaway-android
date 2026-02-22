@@ -16,6 +16,9 @@
  */
 package org.onebusaway.android.ui;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -26,10 +29,16 @@ import org.onebusaway.android.app.Application;
 import org.onebusaway.android.util.PreferenceUtils;
 import org.onebusaway.android.util.UIUtils;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class MyRecentStopsAndRoutesActivity extends MyTabActivityBase {
     //private static final String TAG = "RecentRoutesStopsActivity";
@@ -44,34 +53,54 @@ public class MyRecentStopsAndRoutesActivity extends MyTabActivityBase {
             ShortcutManagerCompat.requestPinShortcut(this, shortcut, null);
             setResult(RESULT_OK, shortcut.getIntent());
             finish();
+            return;
         }
 
-        final Resources res = getResources();
-        final ActionBar bar = getSupportActionBar();
-        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-
-        bar.addTab(bar.newTab()
-                .setTag(MyRecentStopsFragment.TAB_NAME)
-                .setText(res.getString(R.string.my_recent_stops))
-                .setIcon(ContextCompat.getDrawable(this, R.drawable.ic_tab_recent))
-                .setTabListener(new TabListener<MyRecentStopsFragment>(
-                        this,
-                        MyRecentStopsFragment.TAB_NAME,
-                        MyRecentStopsFragment.class)));
-        bar.addTab(bar.newTab()
-                .setTag(MyRecentRoutesFragment.TAB_NAME)
-                .setText(res.getString(R.string.my_recent_routes))
-                .setIcon(ContextCompat.getDrawable(this, R.drawable.ic_tab_recent))
-                .setTabListener(new TabListener<MyRecentRoutesFragment>(
-                        this,
-                        MyRecentRoutesFragment.TAB_NAME,
-                        MyRecentRoutesFragment.class)));
-
-        restoreDefaultTab();
-
-        UIUtils.setupActionBar(this);
+        setContentView(R.layout.activity_recent_stops_routes);
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(R.string.my_recent_title);
+
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        ViewPager2 viewPager = findViewById(R.id.view_pager);
+
+        // FragmentStateAdapter handles Fragments
+        RecentStopsPagerAdapter adapter =
+                new RecentStopsPagerAdapter(this);
+        viewPager.setAdapter(adapter);
+
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            if (position == 0) {
+                tab.setText(R.string.my_recent_stops);
+                tab.setIcon(R.drawable.ic_menu_stop);
+            } else {
+                tab.setText(R.string.my_recent_routes);
+                tab.setIcon(R.drawable.ic_bus);
+            }
+        }).attach();
+    }
+
+    public class RecentStopsPagerAdapter extends FragmentStateAdapter {
+
+        public RecentStopsPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            // Return the correct fragment based on the tab position
+            if (position == 0) {
+                return new MyRecentStopsFragment();
+            } else {
+                return new MyRecentRoutesFragment();
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return 2; // We have two tabs: Stops and Routes
+        }
     }
 
     @Override
@@ -86,34 +115,25 @@ public class MyRecentStopsAndRoutesActivity extends MyTabActivityBase {
     @Override
     protected void restoreDefaultTab() {
         final String def;
+        ViewPager2 viewPager = findViewById(R.id.view_pager);
+
+        if (viewPager == null) return;
+
         if (mDefaultTab != null) {
             def = mDefaultTab;
-            if (def != null) {
-                // Find this tab...
-                final ActionBar bar = getSupportActionBar();
-                for (int i = 0; i < bar.getTabCount(); ++i) {
-                    ActionBar.Tab tab = bar.getTabAt(i);
-                    // Still use tab.getTag() here, as its driven by intent or saved instance state
-                    if (def.equals(tab.getTag())) {
-                        tab.select();
-                    }
-                }
-            }
         } else {
             SharedPreferences settings = Application.getPrefs();
             def = settings.getString(getLastTabPref(), null);
-            if (def != null) {
-                // Find this tab...
-                final ActionBar bar = getSupportActionBar();
-                for (int i = 0; i < bar.getTabCount(); ++i) {
-                    ActionBar.Tab tab = bar.getTabAt(i);
-                    if (def.equals(tab.getText())) {
-                        tab.select();
-                    }
-                }
-            }
         }
 
+        if (def != null) {
+            // Map the saved String tag back to the ViewPager integer position
+            if (def.equals(MyRecentStopsFragment.TAB_NAME)) {
+                viewPager.setCurrentItem(0, false);
+            } else if (def.equals(MyRecentRoutesFragment.TAB_NAME)) {
+                viewPager.setCurrentItem(1, false);
+            }
+        }
     }
 
     /**
@@ -124,13 +144,17 @@ public class MyRecentStopsAndRoutesActivity extends MyTabActivityBase {
     public void onDestroy() {
         // If there was a tab in the intent, don't save it
         if (mDefaultTab == null) {
-            final ActionBar bar = getSupportActionBar();
-            final ActionBar.Tab tab = bar.getSelectedTab();
-            PreferenceUtils.saveString(getLastTabPref(), (String) tab.getText());
+            ViewPager2 viewPager = findViewById(R.id.view_pager);
+            if (viewPager != null) {
+                int currentTab = viewPager.getCurrentItem();
+                String tabName = (currentTab == 0)
+                        ? MyRecentStopsFragment.TAB_NAME
+                        : MyRecentRoutesFragment.TAB_NAME;
+                PreferenceUtils.saveString(getLastTabPref(), tabName);
+            }
 
-            // Assign a value to mDefaultTab so that super().onDestroy() doesn't overwrite the
-            // preference we set above.  FIXME - this is a total hack.
-            mDefaultTab = "hack";
+            // Prevent parent classes from overwriting our save
+            mDefaultTab = "saved";
         }
 
         super.onDestroy();

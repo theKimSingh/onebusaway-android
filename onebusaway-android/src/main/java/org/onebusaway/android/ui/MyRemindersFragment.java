@@ -135,8 +135,6 @@ public final class MyRemindersFragment extends ListFragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ListView listView = getListView();
-        listView.setBackgroundColor(getResources().getColor(R.color.listview_background));
     }
 
     @Override
