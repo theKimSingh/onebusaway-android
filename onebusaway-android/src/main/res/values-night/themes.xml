@@ -37,7 +37,7 @@
             <item name="colorPrimaryVariant">@color/theme_primary_dark</item>
 
             <!--   Theme UI controls like checkboxes and text fields -->
-            <item name="colorSecondary">@color/theme_accent</item>
+            <item name="colorSecondary">@color/theme_primary_dark</item>
             <item name="colorOnSecondary">@android:color/white</item>
 
             <!-- Change the default cursor color so its visible in the action bar -->
@@ -52,15 +52,15 @@
         </style>
 
     <!-- Custom Theme For Alert Dialog -->
-    <style name="customAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@android:color/white</item>
+    <style name="customAlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="buttonBarPositiveButtonStyle">@style/customAlertDialogButton</item>
         <item name="buttonBarNegativeButtonStyle">@style/customAlertDialogButton</item>
         <item name="buttonBarNeutralButtonStyle">@style/customAlertDialogButton</item>
+        <item name="colorSecondary">@color/theme_primary_light</item>
     </style>
 
-    <style name="customAlertDialogButton" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:textColor">@color/theme_primary</item>
+    <style name="customAlertDialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/theme_primary_light</item>
     </style>
 
 
