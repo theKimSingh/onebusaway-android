@@ -130,7 +130,7 @@ public class TravelBehaviorManager {
 //        View v = LayoutInflater.from(mActivityContext).inflate(R.layout.research_participation_dialog, null);
 //        CheckBox neverShowDialog = v.findViewById(R.id.research_never_ask_again);
 //
-//        new AlertDialog.Builder(mActivityContext)
+//        new MaterialAlertDialogBuilder(mActivityContext)
 //                .setView(v)
 //                .setTitle(R.string.travel_behavior_opt_in_title)
 //                .setIcon(createIcon())
@@ -155,7 +155,7 @@ public class TravelBehaviorManager {
 //    }
 //
 //    private void showAgeDialog() {
-//        new AlertDialog.Builder(mActivityContext)
+//        new MaterialAlertDialogBuilder(mActivityContext)
 //                .setMessage(R.string.travel_behavior_age_message)
 //                .setTitle(R.string.travel_behavior_opt_in_title)
 //                .setIcon(createIcon())
@@ -183,7 +183,7 @@ public class TravelBehaviorManager {
 //
 //    private void showInformedConsent() {
 //        String consentHtml = getHtmlConsentDocument();
-//        new AlertDialog.Builder(mActivityContext)
+//        new MaterialAlertDialogBuilder(mActivityContext)
 //                .setMessage(Html.fromHtml(consentHtml))
 //                .setTitle(R.string.travel_behavior_opt_in_title)
 //                .setIcon(createIcon())
@@ -238,7 +238,7 @@ public class TravelBehaviorManager {
 //            emailEditText.setText(email);
 //        }
 //
-//        new AlertDialog.Builder(mActivityContext)
+//        new MaterialAlertDialogBuilder(mActivityContext)
 //                .setTitle(R.string.travel_behavior_opt_in_title)
 //                .setMessage(R.string.travel_behavior_email_message)
 //                .setIcon(createIcon())

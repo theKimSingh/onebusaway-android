@@ -62,6 +62,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.onebusaway.android.BuildConfig;
@@ -534,7 +535,7 @@ public class TripPlanFragment extends Fragment {
 
     private void advancedSettings() {
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(getActivity());
 
         final boolean unitsAreImperial = !PreferenceUtils.getUnitsAreMetricFromPreferences(getContext());
 

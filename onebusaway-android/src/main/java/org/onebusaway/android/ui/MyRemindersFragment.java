@@ -16,7 +16,6 @@
  */
 package org.onebusaway.android.ui;
 
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.database.ContentObserver;
@@ -36,6 +35,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.onebusaway.android.R;
@@ -47,6 +47,7 @@ import org.onebusaway.android.util.PreferenceUtils;
 import org.onebusaway.android.util.ReminderUtils;
 import org.onebusaway.android.util.UIUtils;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
@@ -306,7 +307,7 @@ public final class MyRemindersFragment extends ListFragment
     private void deleteTrip(ListView l, int position) {
         String[] ids = getIds(l, position);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
         builder.setMessage(R.string.trip_info_delete_trip)
                 .setTitle(R.string.trip_info_delete)
                 .setIcon(R.drawable.baseline_delete_forever_48)
@@ -358,7 +359,7 @@ public final class MyRemindersFragment extends ListFragment
     }
 
     private void showSortByDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
         builder.setTitle(R.string.menu_option_sort_by);
         mCurrentSortOrder = PreferenceUtils.getReminderSortOrderFromPreferences();
         builder.setSingleChoiceItems(R.array.sort_reminders, mCurrentSortOrder,
