@@ -25,8 +25,8 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.preference.CheckBoxPreference;
-import android.preference.Preference;
+import androidx.preference.CheckBoxPreference;
+import androidx.preference.Preference;
 import android.util.AttributeSet;
 
 /**
