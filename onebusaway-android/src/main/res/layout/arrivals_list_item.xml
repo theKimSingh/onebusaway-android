@@ -26,7 +26,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:foreground="?attr/selectableItemBackground"
         card_view:cardCornerRadius="4dp"
         card_view:cardUseCompatPadding="true">
 

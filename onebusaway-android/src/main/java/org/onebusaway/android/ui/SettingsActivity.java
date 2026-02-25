@@ -25,6 +25,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -56,7 +58,15 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import static org.onebusaway.android.util.UIUtils.setAppTheme;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements
+        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+
+    private static final String TAG = "PreferencesActivity";
+    static boolean mOtpCustomAPIUrlChanged = false;
+    static boolean mAutoSelectInitialValue;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +85,161 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {
+        // Instantiate the new Fragment (for advanced prefs)
+        final Bundle args = pref.getExtras();
+        final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
+                getClassLoader(),
+                pref.getFragment());
+        fragment.setArguments(args);
+
+        // Replace the current fragment with the new one
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.settings_container, fragment)
+                .addToBackStack(null)
+                .commit();
+        return true;
+    }
+
+    public static class AdvancedSettingsFragment extends PreferenceFragmentCompat
+            implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
+        Preference mCustomApiUrlPref;
+
+        Preference mCustomOtpApiUrlPref;
+        Preference pushFirebaseData;
+        Preference resetDonationTimestamps;
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            // Load the new XML file you created
+            setPreferencesFromResource(R.xml.preferences_advanced, rootKey);
+            mCustomApiUrlPref = findPreference(getString(R.string.preference_key_oba_api_url));
+            mCustomApiUrlPref.setOnPreferenceChangeListener(this);
+
+            mCustomOtpApiUrlPref = findPreference(getString(R.string.preference_key_otp_api_url));
+            mCustomOtpApiUrlPref.setOnPreferenceChangeListener(this);
+
+            pushFirebaseData = findPreference(getString(R.string.preference_key_push_firebase_data));
+            pushFirebaseData.setOnPreferenceClickListener(this);
+
+            resetDonationTimestamps = findPreference(getString(R.string.preference_key_reset_donation_timestamps));
+            resetDonationTimestamps.setOnPreferenceClickListener(this);
+
+
+
+            PreferenceScreen preferenceScreen = getPreferenceScreen();
+            // Hide any preferences that shouldn't be shown if the region is hard-coded via build flavor
+            if (BuildConfig.USE_FIXED_REGION) {
+                PreferenceCategory regionCategory = (PreferenceCategory)
+                        findPreference(getString(R.string.preferences_category_location));
+                regionCategory.removeAll();
+                preferenceScreen.removePreference(regionCategory);
+                PreferenceCategory advancedCategory = (PreferenceCategory)
+                        findPreference(getString(R.string.preferences_category_advanced));
+                Preference experimentalRegion = findPreference(
+                        getString(R.string.preference_key_experimental_regions));
+                advancedCategory.removePreference(experimentalRegion);
+            }
+
+        }
+
+        /**
+         * Returns true if the provided apiUrl could be a valid URL, false if it could not
+         *
+         * @param apiUrl the URL to validate
+         * @return true if the provided apiUrl could be a valid URL, false if it could not
+         */
+        private boolean validateUrl(String apiUrl) {
+            if (!apiUrl.startsWith("http")) {
+                // Assume HTTPS scheme if none is provided
+                apiUrl = getString(R.string.https_prefix) + apiUrl;
+            }
+
+            URL url = null;
+            try {
+                // URI.parse() doesn't tell us if the scheme is missing, so use URL() instead (#126)
+                url = new URL(apiUrl);
+            } catch (MalformedURLException e) {
+                return false;
+            }
+
+            if (url.getHost().equals("localhost")) {
+                return true;
+            } else {
+                return Patterns.WEB_URL.matcher(apiUrl).matches();
+            }
+        }
+
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+            if (preference.equals(mCustomApiUrlPref) && newValue instanceof String) {
+                String apiUrl = (String) newValue;
+
+                if (!TextUtils.isEmpty(apiUrl)) {
+                    boolean validUrl = validateUrl(apiUrl);
+                    if (!validUrl) {
+                        Toast.makeText(getContext(), getString(R.string.custom_api_url_error, getString(R.string.app_name)),
+                                Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                    //User entered a custom API Url, so set the region info to null
+                    Application.get().setCurrentRegion(null);
+                    Log.d(TAG, "User entered new API URL, set region to null.");
+                } else {
+                    //User cleared the API URL preference value, so re-initialize regions
+                    Log.d(TAG, "User entered blank API URL, re-initializing regions...");
+                    NavHelp.goHome(getContext(), false);
+                }
+            }
+            if (preference.equals(mCustomOtpApiUrlPref) && newValue instanceof String) {
+                String apiUrl = (String) newValue;
+
+                if (!TextUtils.isEmpty(apiUrl)) {
+                    boolean validUrl = validateUrl(apiUrl);
+                    if (!validUrl) {
+                        Toast.makeText(getContext(), getString(R.string.custom_otp_api_url_error),
+                                Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                }
+                mOtpCustomAPIUrlChanged = true;
+            }
+            return true;
+        }
+
+        @Override
+        public boolean onPreferenceClick(Preference pref) {
+            Log.d(TAG, "preference - " + pref.getKey());
+            if (pref.equals(pushFirebaseData)) {
+                // Try to push firebase data to the server
+                FirebaseDataPusher pusher = new FirebaseDataPusher();
+                pusher.push(getContext());
+            } else if (pref.equals(resetDonationTimestamps)) {
+                Application.getDonationsManager().setDonationRequestReminderDate(null);
+                Application.getDonationsManager().setDonationRequestDismissedDate(null);
+            }
+            return true;
+        }
+
+        @Override
+        public void onStop() {
+            if (isAdded() && getContext() != null) {
+                SharedPreferences settings = Application.getPrefs();
+                String key = getString(R.string.preference_key_auto_select_region);
+                boolean currentValue = settings.getBoolean(key, true);
+
+                if (currentValue && !mAutoSelectInitialValue) {
+                    Log.d(TAG, "User re-enabled auto-select regions pref, auto-selecting via Home Activity...");
+                    NavHelp.goHome(getActivity(), false);
+                } else if (mOtpCustomAPIUrlChanged) {
+                    NavHelp.goHome(getActivity(), false);
+                }
+            }
+            super.onStop();
+        }
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         getOnBackPressedDispatcher().onBackPressed();
         return true;
@@ -83,7 +248,6 @@ public class SettingsActivity extends AppCompatActivity {
     public static class MySettingsFragment extends PreferenceFragmentCompat
             implements Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener,
             SharedPreferences.OnSharedPreferenceChangeListener, ObaRegionsTask.Callback {
-        private static final String TAG = "PreferencesActivity";
 
         public static final String SHOW_CHECK_REGION_DIALOG = ".checkRegionDialog";
 
@@ -120,9 +284,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         Preference resetDonationTimestamps;
 
-        boolean mAutoSelectInitialValue;
 
-        boolean mOtpCustomAPIUrlChanged = false;
         //Save initial value so we can compare to current value in onDestroy()
 
         ListPreference preferredUnits;
@@ -157,10 +319,8 @@ public class SettingsActivity extends AppCompatActivity {
             mRestoreBackup.setOnPreferenceClickListener(this);
 
             mCustomApiUrlPref = findPreference(getString(R.string.preference_key_oba_api_url));
-            mCustomApiUrlPref.setOnPreferenceChangeListener(this);
 
             mCustomOtpApiUrlPref = findPreference(getString(R.string.preference_key_otp_api_url));
-            mCustomOtpApiUrlPref.setOnPreferenceChangeListener(this);
 
             mAnalyticsPref = findPreference(getString(R.string.preferences_key_analytics));
             mAnalyticsPref.setOnPreferenceChangeListener(this);
@@ -179,10 +339,8 @@ public class SettingsActivity extends AppCompatActivity {
 //        }
 
             pushFirebaseData = findPreference(getString(R.string.preference_key_push_firebase_data));
-            pushFirebaseData.setOnPreferenceClickListener(this);
 
             resetDonationTimestamps = findPreference(getString(R.string.preference_key_reset_donation_timestamps));
-            resetDonationTimestamps.setOnPreferenceClickListener(this);
 
             mHideAlertsPref = findPreference(getString(R.string.preference_key_hide_alerts));
             mHideAlertsPref.setOnPreferenceChangeListener(this);
@@ -217,20 +375,6 @@ public class SettingsActivity extends AppCompatActivity {
             mThemePref.setOnPreferenceChangeListener(this);
 
             settings.registerOnSharedPreferenceChangeListener(this);
-
-            PreferenceScreen preferenceScreen = getPreferenceScreen();
-            // Hide any preferences that shouldn't be shown if the region is hard-coded via build flavor
-            if (BuildConfig.USE_FIXED_REGION) {
-                PreferenceCategory regionCategory = (PreferenceCategory)
-                        findPreference(getString(R.string.preferences_category_location));
-                regionCategory.removeAll();
-                preferenceScreen.removePreference(regionCategory);
-                PreferenceCategory advancedCategory = (PreferenceCategory)
-                        findPreference(getString(R.string.preferences_category_advanced));
-                Preference experimentalRegion = findPreference(
-                        getString(R.string.preference_key_experimental_regions));
-                advancedCategory.removePreference(experimentalRegion);
-            }
 
             // If the Android version is Oreo (8.0) hide "Notification" preference
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -484,13 +628,6 @@ public class SettingsActivity extends AppCompatActivity {
                 BackupUtils.createBackupFile(getActivity());
             } else if (pref.equals(mRestoreBackup)){
                 BackupUtils.selectBackupFile(getActivity());
-            } else if (pref.equals(pushFirebaseData)) {
-                // Try to push firebase data to the server
-                FirebaseDataPusher pusher = new FirebaseDataPusher();
-                pusher.push(getContext());
-            } else if (pref.equals(resetDonationTimestamps)) {
-                Application.getDonationsManager().setDonationRequestReminderDate(null);
-                Application.getDonationsManager().setDonationRequestDismissedDate(null);
             }
             return true;
         }
