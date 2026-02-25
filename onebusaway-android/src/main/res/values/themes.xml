@@ -51,7 +51,6 @@
         <item name="alertDialogTheme">@style/customAlertDialogTheme</item>
         <!-- Old Version of Text Layout -->
         <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
-
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
