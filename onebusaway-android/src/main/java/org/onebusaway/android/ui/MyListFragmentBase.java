@@ -15,6 +15,8 @@
  */
 package org.onebusaway.android.ui;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import org.onebusaway.android.R;
 
 import android.app.Activity;
@@ -142,7 +144,7 @@ abstract class MyListFragmentBase extends ListFragment
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return new AlertDialog.Builder(requireActivity())
+            return new MaterialAlertDialogBuilder(requireActivity())
                     .setMessage(dialogMessageResId)
                     .setTitle(dialogTitleResId)
                     .setIcon(android.R.drawable.ic_dialog_alert)

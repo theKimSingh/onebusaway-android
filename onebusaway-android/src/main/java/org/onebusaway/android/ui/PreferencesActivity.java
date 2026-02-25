@@ -47,6 +47,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.onebusaway.android.BuildConfig;
@@ -335,7 +336,7 @@ public class PreferencesActivity extends PreferenceActivity
             return;
         }
 
-        new AlertDialog.Builder(this)
+        new MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.preference_region_dialog_title))
                 .setMessage(getString(R.string.preference_region_dialog_message, obaRegion.getName()))
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -521,7 +522,7 @@ public class PreferencesActivity extends PreferenceActivity
      * Currently disabled see ticket https://github.com/OneBusAway/onebusaway-android/issues/1240
      */
 //    private void showOptOutDialog() {
-//        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this)
+//        androidx.appcompat.app.MaterialAlertDialogBuilder builder = new androidx.appcompat.app.MaterialAlertDialogBuilder(this)
 //                .setTitle(R.string.travel_behavior_dialog_opt_out_title)
 //                .setMessage(R.string.travel_behavior_dialog_opt_out_message)
 //                .setCancelable(false)

@@ -61,6 +61,7 @@ import org.onebusaway.android.report.ui.util.ServiceUtils;
 import org.onebusaway.android.util.LocationUtils;
 import org.onebusaway.android.util.PreferenceUtils;
 import org.onebusaway.android.util.ShowcaseViewUtils;
+import org.onebusaway.android.util.UIUtils;
 import org.opentripplanner.routing.bike_rental.BikeRentalStation;
 
 import java.io.IOException;
@@ -270,8 +271,8 @@ public class InfrastructureIssueActivity extends BaseReportActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
         super.onCreate(savedInstanceState);
+        UIUtils.setupActionBar(this);
 
         setContentView(R.layout.infrastructure_issue);
 

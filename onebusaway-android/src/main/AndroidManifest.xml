@@ -224,7 +224,7 @@
         </activity>
         <!-- ActionBarCompat library doesn't have an ActionBarPreferenceActivity, so define parent here-->
         <activity
-            android:name="org.onebusaway.android.ui.PreferencesActivity"
+            android:name="org.onebusaway.android.ui.SettingsActivity"
             android:parentActivityName="org.onebusaway.android.ui.HomeActivity"
             android:exported="true"
             tools:ignore="ExportedPreferenceActivity">

@@ -17,7 +17,6 @@
 package org.onebusaway.android.ui;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.location.Location;
@@ -32,6 +31,7 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.onebusaway.android.R;
 import org.onebusaway.android.app.Application;
@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
@@ -192,7 +193,7 @@ public class SearchResultsFragment extends ListFragment
     private void clickRoute(ObaRoute route) {
         final String routeId = route.getId();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
         builder.setTitle(UIUtils.getRouteDescription(route));
 
         builder.setItems(R.array.search_route_options, new DialogInterface.OnClickListener() {
@@ -211,13 +212,13 @@ public class SearchResultsFragment extends ListFragment
                 }
             }
         });
-        AlertDialog dialog = builder.create();
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
         dialog.setOwnerActivity(getActivity());
         dialog.show();
     }
 
     private void clickStop(final ObaStop stop) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
         builder.setTitle(UIUtils.formatDisplayText(stop.getName()));
 
         builder.setItems(R.array.search_stop_options, new DialogInterface.OnClickListener() {
