@@ -110,13 +110,13 @@
     <PreferenceCategory
         android:key="@string/preference_key_notifications"
         android:title="@string/preferences_category_notifications">
-<!--        <RingtonePreference-->
-<!--            android:key="@string/preference_key_notification_sound"-->
-<!--            android:ringtoneType="notification"-->
-<!--            android:showDefault="true"-->
-<!--            android:showSilent="true"-->
-<!--            android:summary="@string/preferences_preferred_sound_summary"-->
-<!--            android:title="@string/preferences_preferred_sound_title" />-->
+        <RingtonePreference
+            android:key="@string/preference_key_notification_sound"
+            android:ringtoneType="notification"
+            android:showDefault="true"
+            android:showSilent="true"
+            android:summary="@string/preferences_preferred_sound_summary"
+            android:title="@string/preferences_preferred_sound_title" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/preference_key_preference_vibrate_allowed"

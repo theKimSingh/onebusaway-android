@@ -583,7 +583,7 @@ public class HomeActivity extends AppCompatActivity
                 UIUtils.launchPayMyFareApp(this);
                 break;
             case NAVDRAWER_ITEM_SETTINGS:
-                Intent preferences = new Intent(HomeActivity.this, SettingsActivity.class);
+                Intent preferences = new Intent(HomeActivity.this, PreferencesActivity.class);
                 startActivity(preferences);
                 ObaAnalytics.reportUiEvent(mFirebaseAnalytics,
                         Application.get().getPlausibleInstance(),
