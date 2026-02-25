@@ -150,7 +150,7 @@ public final class UIUtils {
         View root = activity.findViewById(android.R.id.content);
         ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
             Insets sysBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            setStatusBarColor(activity, ContextCompat.getColor(activity, R.color.theme_primary_dark), true);
+            setStatusBarColor(activity, ContextCompat.getColor(activity, R.color.theme_primary), true);
             v.setPadding(sysBars.left, sysBars.top, sysBars.right, sysBars.bottom);
             return insets;
         });

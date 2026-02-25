@@ -53,7 +53,6 @@
     <!-- Reporting -->
     <style name="Line3Text">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@android:color/black</item>
     </style>
     <style name="legendDialogTextStyle">
         <item name="android:textSize">14sp</item>
@@ -71,9 +70,9 @@
         <item name="android:paddingTop">18sp</item>
     </style>
 
-    <!-- Form styles -->
+    <!-- Form styles TOODS -->
     <style name="FormBackground">
-        <item name="android:background">@android:color/background_light</item>
+<!--        <item name="android:background">@android:color/background_light</item>-->
     </style>
     <style name="FormLabel">
         <item name="android:paddingTop">8sp</item>
@@ -109,6 +108,7 @@
     </style>
     <style name="LoadMoreArrivals">
         <item name="android:textSize">18sp</item>
+<!--        // STODO:-->
         <item name="android:background">@drawable/load_more_arrivals_button</item>
     </style>
 

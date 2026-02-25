@@ -34,7 +34,6 @@
 <!--        <item name="colorPrimary">@color/theme_primary</item>-->
 <!--        <item name="colorOnSurface">@color/theme_primary</item>-->
 <!--        <item name="colorSurface">@android:color/white</item>-->
-<!--        <item name="statusBarColor">@android:color/white</item>-->
 
         <!--   Darker variant for the status bar and contextual app bars -->
 <!--        <item name="colorPrimaryVariant">@color/theme_primary</item>-->
