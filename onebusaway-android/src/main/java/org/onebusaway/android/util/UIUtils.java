@@ -147,14 +147,6 @@ public final class UIUtils {
             bar.setDisplayShowTitleEnabled(true);
         }
 
-        View root = activity.findViewById(android.R.id.content);
-        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
-            Insets sysBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            setStatusBarColor(activity, ContextCompat.getColor(activity, R.color.theme_primary_dark), true);
-            v.setPadding(sysBars.left, sysBars.top, sysBars.right, sysBars.bottom);
-            return insets;
-        });
-
         // HomeActivity is the root for all other activities
         if (!(activity instanceof HomeActivity) && bar != null) {
             bar.setDisplayHomeAsUpEnabled(true);

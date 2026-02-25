@@ -272,7 +272,6 @@ public class InfrastructureIssueActivity extends BaseReportActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
-        UIUtils.setupActionBar(this);
 
         setContentView(R.layout.infrastructure_issue);
 

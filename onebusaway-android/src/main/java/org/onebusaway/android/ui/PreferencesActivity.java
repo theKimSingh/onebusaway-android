@@ -681,7 +681,7 @@ public class PreferencesActivity extends PreferenceActivity
         }
     }
 
-    /**
+    /**a
      * Imitate Action Bar with back button - from http://stackoverflow.com/a/27455363/937715
      */
     private void setupActionBar() {

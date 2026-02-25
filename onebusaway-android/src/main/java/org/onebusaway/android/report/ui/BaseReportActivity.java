@@ -16,10 +16,12 @@
 package org.onebusaway.android.report.ui;
 
 import org.onebusaway.android.R;
+import org.onebusaway.android.util.UIUtils;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -47,6 +49,12 @@ public class BaseReportActivity extends AppCompatActivity {
     protected RelativeLayout mInfoHeader;
 
     protected FrameLayout mInLineInstructions;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        UIUtils.setupActionBar(this);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -49,7 +49,7 @@ abstract class MyTabActivityBase extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+//        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         UIUtils.setupActionBar(this);
         setSupportProgressBarIndeterminateVisibility(false);
