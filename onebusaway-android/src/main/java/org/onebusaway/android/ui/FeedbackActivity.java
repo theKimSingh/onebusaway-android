@@ -56,6 +56,8 @@ public class FeedbackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
+        getSupportActionBar().setElevation(0);
+
         setTitle(getResources().getString(R.string.feedback_label));
 
         Intent intent = this.getIntent();

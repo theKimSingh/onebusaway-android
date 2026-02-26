@@ -96,7 +96,7 @@ public class TripPlanActivity extends AppCompatActivity implements TripRequest.C
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_trip_plan);
-
+        getSupportActionBar().setElevation(0);
         UIUtils.setupActionBar(this);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
