@@ -43,8 +43,6 @@
 
         <!-- Change the default cursor color so its visible in the action bar -->
         <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
-        <!-- Allows us to force Dark Theme throughout the app -->
-        <item name="android:forceDarkAllowed">false</item>
         <!-- Allows us to force AlertDialog Theme across the app -->
         <item name="alertDialogTheme">@style/customAlertDialogTheme</item>
         <!-- Old Version of Text Layout -->
