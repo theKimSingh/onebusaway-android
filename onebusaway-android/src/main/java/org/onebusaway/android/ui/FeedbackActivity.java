@@ -57,6 +57,7 @@ public class FeedbackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
         setTitle(getResources().getString(R.string.feedback_label));
+        getSupportActionBar().setElevation(0);
 
         Intent intent = this.getIntent();
         CheckBox sendLogs = findViewById(R.id.feedback_send_logs);

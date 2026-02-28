@@ -412,6 +412,7 @@ public class HomeActivity extends AppCompatActivity
         //setupPermissions(this);
 
         UIUtils.setupActionBar(this);
+        getSupportActionBar().setElevation(0);
 
         setupDonationView(this);
 
