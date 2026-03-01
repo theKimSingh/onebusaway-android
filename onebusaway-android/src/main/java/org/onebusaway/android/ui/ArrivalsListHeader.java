@@ -397,7 +397,7 @@ class ArrivalsListHeader {
         mStopInfo = (ImageButton) mView.findViewById(R.id.stop_info_button);
         mExpandCollapse = (ImageView) mView.findViewById(R.id.expand_collapse);
         mAlertView = (ImageView) mView.findViewById(R.id.alert);
-        mAlertView.setColorFilter(mView.getResources().getColor(R.color.header_text_color));
+        mAlertView.setColorFilter(mView.getResources().getColor(R.color.header_eta_text_color));
         mAlertView.setVisibility(View.GONE);
 
         resetExpandCollapseAnimation();

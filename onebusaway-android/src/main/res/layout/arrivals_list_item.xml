@@ -18,10 +18,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/stop_info_arrival_list_background"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        style="@style/Widget.Material3.CardView.Elevated"
         android:id="@+id/arrivals_card_view_eta"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

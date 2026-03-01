@@ -45,6 +45,8 @@
     <color name="header_text_color">@android:color/white</color>
     <color name="header_text_faded_color">#bbffffff</color>
     <color name="header_stop_info_ontime">@color/theme_primary_light</color>
+    <color name="header_eta_text_color">@android:color/white</color>
+
 
     <!-- Arrival time colors -->
     <color name="stop_info_scheduled_time">#777777</color>

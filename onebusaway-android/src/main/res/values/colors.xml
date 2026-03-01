@@ -48,9 +48,11 @@
     <color name="route_text_color_default">@android:color/black</color>
 
     <!-- Arrival times header -->
-    <color name="header_text_color">@android:color/white</color>
-    <color name="header_text_faded_color">#bbffffff</color>
+    <color name="header_text_color">@android:color/black</color>
+    <color name="header_text_faded_color">@android:color/black</color>
     <color name="header_stop_info_ontime">@color/theme_primary</color>
+    <color name="header_eta_text_color">@android:color/white</color>
+
 
     <!-- Arrival time colors -->
     <color name="stop_info_scheduled_time">#777777</color>

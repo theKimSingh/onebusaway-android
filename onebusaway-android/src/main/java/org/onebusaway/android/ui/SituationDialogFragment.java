@@ -32,6 +32,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -193,16 +194,12 @@ public class SituationDialogFragment extends DialogFragment {
                 & Configuration.UI_MODE_NIGHT_MASK;
 
         // 2. Define the colors based on the mode
-        int textColor;
         int linkColor;
-
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             // Dark Mode: Use light colors
-            textColor = Color.WHITE;
             linkColor = Color.CYAN; // A light blue for links
         } else {
             // Light Mode: Use dark colors
-            textColor = Color.BLACK;
             linkColor = Color.BLUE; // Standard dark blue for links
         }
         // --- END MANUAL DARK MODE CHECK ---
@@ -213,12 +210,10 @@ public class SituationDialogFragment extends DialogFragment {
             title.setText(args.getString(TITLE));
             // The title's background (@color/theme_primary) is dark, so title text should
             // always be light.
-            title.setTextColor(Color.WHITE);
         }
 
         TextView descTxtView = (TextView) dialog.findViewById(R.id.alert_description);
         if (descTxtView != null) {
-            descTxtView.setTextColor(textColor);
             descTxtView.setLinkTextColor(linkColor);
 
             String desc = args.getString(DESCRIPTION);
