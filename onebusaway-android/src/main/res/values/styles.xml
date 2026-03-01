@@ -18,7 +18,9 @@
     <!-- Navigation Drawer -->
     <style name="NavDrawerListItem" parent="Widget.AppCompat.ListView.Menu">
         <item name="android:background">@drawable/navdrawer_item_selectable</item>
-        <item name="android:shape">oval</item>
+<!--        <item name="android:shape">oval</item>-->
+        <item name="android:radius">100dp</item>
+
     </style>
 
     <!-- General styles -->

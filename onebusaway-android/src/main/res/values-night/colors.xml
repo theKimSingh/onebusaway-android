@@ -28,7 +28,7 @@
     <color name="body_text_2_inverse">#8a000000</color>
 
     <!-- Navigation Drawer -->
-    <color name="navdrawer_background">@color/background_material_dark</color>
+    <color name="navdrawer_background">@color/md_theme_surfaceContainer</color>
     <color name="navdrawer_text_color_selected">@color/theme_primary_light</color>
     <color name="navdrawer_background_color_selected">#11000000</color>
     <color name="navdrawer_icon_tint">#888</color>
@@ -119,7 +119,7 @@
     <color name="zoom_btn_color_default">#BEFFFFFF</color>
     <color name="zoom_btn_color_pressed">#82CCCCCC</color>
     <color name="zoom_btn_color">#82CCCCCC</color>
-    <color name="appbar_color">@color/theme_primary</color>
+    <color name="appbar_color">@color/md_theme_surfaceContainer</color>
 
 
     <color name="md_theme_primary">#B1D18A</color>

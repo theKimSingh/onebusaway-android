@@ -33,7 +33,7 @@
     <color name="body_text_2_inverse">#8affffff</color>
 
     <!-- Navigation Drawer -->
-    <color name="navdrawer_background">@android:color/white</color>
+    <color name="navdrawer_background">@color/md_theme_surfaceContainer</color>
     <color name="navdrawer_text_color">@color/body_text_1</color>
     <color name="navdrawer_text_color_selected">@color/theme_primary</color>
     <color name="navdrawer_background_color_selected">#11000000</color>
@@ -129,7 +129,6 @@
 
 
     <!--    Material 3-->
-
     <color name="md_theme_primary">#3B6939</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#BCF0B4</color>
