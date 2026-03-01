@@ -34,6 +34,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.onebusaway.android.R;
@@ -101,7 +102,7 @@ public class SituationDialogFragment extends DialogFragment {
         Bundle args = getArguments();
         final String situationId = args.getString(ID);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity())
                 .setView(R.layout.situation)
                 .setPositiveButton(R.string.hide, new DialogInterface.OnClickListener() {
                     @Override

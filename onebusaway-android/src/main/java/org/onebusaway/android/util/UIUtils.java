@@ -96,6 +96,7 @@ import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.onebusaway.android.R;
@@ -149,7 +150,7 @@ public final class UIUtils {
         View root = activity.findViewById(android.R.id.content);
         ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
             Insets sysBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            setStatusBarColor(activity, ContextCompat.getColor(activity, R.color.theme_primary), true);
+            setStatusBarColor(activity, ContextCompat.getColor(activity, R.color.appbar_color), true);
             v.setPadding(sysBars.left, sysBars.top, sysBars.right, sysBars.bottom);
             return insets;
         });
@@ -559,7 +560,7 @@ public final class UIUtils {
      * @return an AlertDialog with the given title and message
      */
     public static AlertDialog buildAlertDialog(Context context, String title, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
         builder.setTitle(title);
         builder.setMessage(message);
         return builder.create();
@@ -1912,7 +1913,7 @@ public final class UIUtils {
         Drawable icon = activity.getResources().getDrawable(android.R.drawable.ic_dialog_alert);
         DrawableCompat.setTint(icon, activity.getResources().getColor(R.color.alert_icon_error));
 
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(activity)
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity)
                 .setTitle(region.getPaymentWarningTitle())
                 .setIcon(icon)
                 .setCancelable(false)

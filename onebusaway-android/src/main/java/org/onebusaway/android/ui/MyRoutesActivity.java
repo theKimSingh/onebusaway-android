@@ -33,6 +33,7 @@ public class MyRoutesActivity extends MyTabActivityBase {
         //ensureSupportActionBarAttached();
         final Resources res = getResources();
         final ActionBar bar = getSupportActionBar();
+        bar.setElevation(0);
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         bar.setTitle(R.string.my_recent_routes);
         bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
