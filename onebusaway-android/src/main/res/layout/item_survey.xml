@@ -76,7 +76,6 @@
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@string/font_fontFamily_medium"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/quantum_black_text"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/openExternalSurveyBtn"
