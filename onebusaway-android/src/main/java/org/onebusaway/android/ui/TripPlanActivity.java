@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -98,6 +99,8 @@ public class TripPlanActivity extends AppCompatActivity implements TripRequest.C
         setContentView(R.layout.activity_trip_plan);
         getSupportActionBar().setElevation(0);
         UIUtils.setupActionBar(this);
+
+        getSupportActionBar().setElevation(0);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
